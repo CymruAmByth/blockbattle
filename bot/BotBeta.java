@@ -19,8 +19,16 @@
 
 package bot;
 
+import bot.BotBetaHelpers.PathFinder;
+import bot.BotBetaHelpers.Solution;
+import bot.BotBetaHelpers.SolutionFinder;
+import field.Cell;
+import field.Field;
+import field.Shape;
+import field.ShapeType;
 import moves.Move;
 import moves.MoveType;
+import player.Player;
 
 import java.util.*;
 
@@ -33,11 +41,11 @@ import java.util.*;
  * @author Jim van Eeden <jim@riddles.io>
  */
 
-public class BotStarter implements Bot {
+public class BotBeta implements Bot{
 
 	private Random random;
 
-	public BotStarter() {
+	public BotBeta() {
 		this.random = new Random();
 	}
 
@@ -47,21 +55,18 @@ public class BotStarter implements Bot {
 	 * @return a list of moves to execute
 	 */
 	public Move getMove(BotState state) {
-		List<MoveType> allMoves = Collections.unmodifiableList(Arrays.asList(MoveType.values()));
-		MoveType move = null;
+		Player player = state.getPlayers().get(state.getMyName());
+		Field field = player.getField();
+		ShapeType shape = state.getCurrentShape();
 
-		ArrayList<MoveType> moves = new ArrayList<>();
-		while (move != MoveType.DROP) {
-			System.out.println(this.random.nextInt(allMoves.size()));
-			move = allMoves.get(this.random.nextInt(allMoves.size()));
-			moves.add(move);
-		}
+		System.err.println("Round: "+state.getRoundNumber());
+		List<Solution> solutions = SolutionFinder.findSolutions(field, shape);
 
-		return new Move(moves);
+		return new Move(PathFinder.getFirstPath(solutions, field, new Shape(shape, field, state.getShapeLocation())));
 	}
 
 	public static void main(String[] args) {
-		BotParser parser = new BotParser(new BotStarter());
+		BotParser parser = new BotParser(new BotBeta());
 		parser.run();
 	}
 }

@@ -32,10 +32,10 @@ import java.util.List;
 
 /**
  * BotAlpha class
- * 
+ *
  * This class is where the main logic should be. Implement getMove() to
  * return something better than random moves.
- * 
+ *
  * @author Jim van Eeden <jim@riddles.io>
  */
 
@@ -167,11 +167,11 @@ public class BotAlpha implements Bot {
 
 
 		int currentIndex = state.getShapeLocation().x;
-        int targetIndex;
-        if(bestIndex == -1){
+		int targetIndex;
+		if(bestIndex == -1){
 			targetIndex = backupIndex;
 		} else {
-        	targetIndex = bestIndex;
+			targetIndex = bestIndex;
 		}
 
 		System.err.println("Target: "+targetIndex);
@@ -180,17 +180,17 @@ public class BotAlpha implements Bot {
 
 		ArrayList<MoveType> moves = new ArrayList<>();
 		for(int i=0; i< Math.abs(currentIndex-targetIndex); i++){
-        	if(targetIndex > currentIndex){
+			if(targetIndex > currentIndex){
 				moves.add(MoveType.RIGHT);
 			} else {
-        		moves.add(MoveType.LEFT);
+				moves.add(MoveType.LEFT);
 			}
 		}
 		moves.add(MoveType.DROP);
 
 		return new Move(moves);
 	}
-	
+
 	public static void main(String[] args) {
 		BotParser parser = new BotParser(new BotAlpha());
 		parser.run();

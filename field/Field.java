@@ -35,10 +35,12 @@ public class Field {
 	private int width;
 	private int height;
 	private Cell grid[][];
+	private String input;
 
 	public Field(int width, int height, String input) {
 	    this.width = width;
 	    this.height = height;
+	    this.input = input;
 
 	    parseFromString(input);
     }
@@ -77,5 +79,10 @@ public class Field {
 	
 	public int getWidth() {
 		return this.width;
+	}
+
+	public Field clone() {
+		//clone without the shape fields(1)
+		return new Field(this.width, this.height, this.input.replace("1","0"));
 	}
 }

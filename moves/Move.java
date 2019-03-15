@@ -1,6 +1,7 @@
 package moves;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -12,9 +13,9 @@ import java.util.stream.Collectors;
  */
 public class Move {
 
-    private ArrayList<MoveType> moves;
+    private List<MoveType> moves;
 
-    public Move(ArrayList<MoveType> moves) {
+    public Move(List<MoveType> moves) {
         this.moves = moves;
     }
 

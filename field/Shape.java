@@ -231,4 +231,15 @@ public class Shape {
 	public ShapeType getType() {
 		return this.type;
 	}
+
+	public boolean hasCollision (Field field) {
+		for (Cell c : this.blocks) {
+			if (c.hasCollision(field)) {
+				System.err.println(c.getLocation().x);
+				System.err.println(c.getLocation().y);
+				return true;
+			}
+		}
+		return false;
+	}
 }
